@@ -1,0 +1,82 @@
+/* Login.Css */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  /* Jika pakai foto lokal: background-image: url("../assets/nama-foto-kamu.jpg"); */
+  background-image: url("../assets/background.jpeg"); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: darken;
+}
+
+
+.login-card {
+  background-color: rgba(255, 255, 255, 0.5); 
+  padding: 40px;
+  border-radius: 40px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  width: 380px;
+  text-align: center;
+  backdrop-filter: blur(15px); 
+  -webkit-backdrop-filter: blur(15px); /* Support Safari */
+  border: 1px solid rgba(255, 255, 255, 0.3); 
+}
+
+.login-title {
+  color: #7c7e9d;
+  margin-bottom: 35px;
+  font-size: 2.2rem;
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+  letter-spacing: 2px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.input-group label {
+  color: #7c7e9d;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.input-group input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #7c7e9d;
+  padding: 8px 0;
+  color: #4c5372;
+  outline: none;
+  font-size: 1rem;
+}
+
+.btn-login-submit {
+  margin-top: 15px;
+  padding: 14px;
+  border-radius: 30px;
+  border: none;
+  background-color: #7c7e9d;
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-login-submit:hover {
+  background-color: #4c5372;
+  transform: scale(1.02);
+}

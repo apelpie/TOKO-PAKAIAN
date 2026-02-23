@@ -1,0 +1,31 @@
+const swaggerJsdoc = require('swagger-jsdoc');
+
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: '👕👖 Toko Pakaian Citra 👗🧥',
+      version: '1.0.0',
+      description: 'API untuk tugas akhir Rekayasa Perangkat Lunak - Toko Pakaian',
+    },
+    servers: [
+      {
+        url: 'http://localhost:3000',
+      },
+    ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+    security: [{ bearerAuth: [] }],
+  },
+  apis: ['./src/routes/*.js'], // pastikan path ini benar sesuai struktur project kamu
+};
+
+const swaggerSpec = swaggerJsdoc(options);
+module.exports = swaggerSpec;
