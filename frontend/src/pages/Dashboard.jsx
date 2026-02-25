@@ -91,6 +91,11 @@ const handleDeleteProduct = (id) => {
   }
 };
 
+const handleEditProduct = (item) => {
+  setSelectedProduct(item);
+  setView("edit-produk"); // View baru untuk form edit nanti
+};
+
   return (
     <div className="dashboard-wrapper">
       {view === "katalog" && (
