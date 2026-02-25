@@ -84,6 +84,13 @@ const handleLogout = () => {
     navigate("/login");
   };
 
+const handleDeleteProduct = (id) => {
+  if (window.confirm("Yakin ingin menghapus produk ini dari katalog?")) {
+    // Di M4 nanti, ini akan disambungkan ke API/Database
+    alert(`Produk dengan ID ${id} berhasil dihapus.`);
+  }
+};
+
   return (
     <div className="dashboard-wrapper">
       {view === "katalog" && (
@@ -134,18 +141,34 @@ const handleLogout = () => {
             <div className="section-intro" id="katalog-section">
               <h3>Katalog Produk Terbaru</h3>
             </div>
-            <div className="catalog-grid">
-              {products.map((item) => (
-                <ProductCard 
+           <div className="catalog-grid">
+             {products.map((item) => (
+                 <div key={item.id} className="product-card-wrapper">
                   key={item.id} 
                   product={item} 
                   onAddToCart={() => handleAddToCart(item)} 
                   onBuyNow={() => handleBuyNow(item)} 
-                />
-              ))}
-            </div>
-          </>
-        )}
+                  <ProductCard product={item} />
+                <div className="product-actions-pro">
+                 {roleUser === "admin" ? (
+                    // Jika Admin: Muncul Tombol Kelola
+                    <div className="admin-controls">
+                       <button className="edit-btn" onClick={() => handleEditProduct(item)}>📝 Edit</button>
+                       <button className="delete-btn" onClick={() => handleDeleteProduct(item.id)}>🗑️ Hapus</button>
+                    </div>
+                ) : (
+                    // Jika User/Customer: Muncul Tombol Belanja
+                    <div className="user-controls">
+                       <button className="cart-btn" onClick={() => handleAddToCart(item)}>🛒 Keranjang</button>
+                       <button className="buy-btn" onClick={() => handleBuyNow(item)}>⚡ Beli</button>
+                    </div>
+                  )}
+               </div>
+             </div>
+          ))}
+       </div>
+      </>
+    )}
 
         {view === "checkout" && selectedProduct && (
         <div className="checkout-container-pro">
