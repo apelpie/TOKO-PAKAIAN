@@ -123,8 +123,8 @@ const router = express.Router();
 const auth = require("../middleware/authorization");
 const category = require("../Controllers/categoryController");
 
-router.get("/", auth.authenticate, auth.authorize(["admin"]), category.getAllCategories);
-router.get("/:id", auth.authenticate, auth.authorize(["admin"]), category.getCategoryById);
+router.get("/", auth.authenticate, category.getAllCategories);
+router.get("/:id", auth.authenticate, category.getCategoryById);
 router.post("/", auth.authenticate, auth.authorize(["admin"]), category.createCategory);
 router.put("/:id", auth.authenticate, auth.authorize(["admin"]), category.updateCategory);
 router.delete("/:id", auth.authenticate, auth.authorize(["admin"]), category.deleteCategory);

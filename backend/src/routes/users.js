@@ -7,6 +7,21 @@
 
 /**
  * @swagger
+ * /users:
+ *   get:
+ *     summary: Ambil semua users (admin only)
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Daftar users berhasil diambil
+ *       500:
+ *         description: Gagal mengambil data users
+ */
+
+/**
+ * @swagger
  * /users/profile:
  *   get:
  *     summary: Ambil profil user yang sedang login
@@ -114,6 +129,7 @@ const router = express.Router();
 const auth = require("../middleware/authorization");
 const userController = require("../controllers/userController");
 
+router.get('/', auth.authenticate, auth.authorize(["admin"]), userController.getAllUsers);
 router.get("/profile", auth.authenticate, userController.getProfile);
 router.post("/register", auth.authenticate, auth.authorize(['admin']), userController.register);
 router.put("/deactivate", auth.authenticate, auth.authorize(["admin"]), userController.deactivateUser);

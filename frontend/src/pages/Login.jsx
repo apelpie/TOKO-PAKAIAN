@@ -1,65 +1,86 @@
-// Login.jsx 
-import { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import "./Login.css";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import './Login.css';
 
-function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-
-  const handleLogin = async (e) => {
-  e.preventDefault();
-  try {
-    const response = await axios.post("http://localhost:3000/auth/login", {
-      username,
-      password,
-    });
-
-    const { accessToken, user } = response.data;
-    if (accessToken && user) {
-      localStorage.setItem("token", accessToken);
-      localStorage.setItem("name", user.name); 
-      localStorage.setItem("role", user.role); 
-      alert(`Login Berhasil! Selamat datang ${user.name}`);
-      navigate("/dashboard");
+const Login = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     
-      window.location.reload();
-    }
-  } catch (error) {
-    const pesan = error.response?.data?.pesan || "Login Gagal";
-    alert(pesan);
-  }
+    const navigate = useNavigate();
+    const { login } = useAuth();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError('');
+        setLoading(true);
+        
+        const result = await login(username, password);
+        
+        console.log('Login result:', result);
+        console.log('User role:', result.user?.role);
+
+        if (result.success) {
+            // Redirect berdasarkan role
+            const userRole = result.user?.role || 'pelanggan';
+            
+            if (userRole === 'admin') {
+                navigate('/admin/dashboard');
+            } else if (userRole === 'kasir') {
+                navigate('/kasir/dashboard');
+            } else {
+                navigate('/dashboard'); // untuk pelanggan
+            }
+        } else {
+            setError(result.message);
+        }
+        
+        setLoading(false);
+    };
+
+    return (
+        <div className="login-container">
+            <div className="login-box">
+                <h1>Daphne's</h1>
+                
+                {error && <div className="error-message">{error}</div>}
+                
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label>Username</label>
+                        <input
+                            type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="Masukkan username"
+                            required
+                        />
+                    </div>
+                    
+                    <div className="form-group">
+                        <label>Password</label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Masukkan password"
+                            required
+                        />
+                    </div>
+                    
+                    <button 
+                        type="submit" 
+                        disabled={loading}
+                        className="btn-login"
+                    >
+                        {loading ? 'Loading...' : 'Login'}
+                    </button>
+                </form>
+            </div>
+        </div>
+    );
 };
 
-  return (
-    <div className="login-container">
-      <div className="login-card">
-        <h2 className="login-title">Daphne's</h2>
-        <form onSubmit={handleLogin} className="login-form">
-          <div className="input-group">
-            <label>Username</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-          <div className="input-group">
-            <label>Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit" className="btn-login-submit">Login</button>
-        </form>
-      </div>
-    </div>
-  );
-}
 export default Login;

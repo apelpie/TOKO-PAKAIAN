@@ -24,7 +24,6 @@ const usersRoutes = require('./src/routes/users'); // Untuk /profile
 const categoriesRoutes = require('./src/routes/categories');
 const productsRoutes = require('./src/routes/products');
 const transactionsRoutes = require('./src/routes/transactions');
-const transactionItemsRoutes = require("./src/routes/transactionItems");
 
 // Route Utama
 app.get('/', (req, res) => {
@@ -40,8 +39,6 @@ app.use('/categories', categoriesRoutes); // /api/categories
 app.use('/products', productsRoutes); // /api/products
 
 app.use('/transactions', transactionsRoutes); // /api/transactions
-app.use("/transaction-items", transactionItemsRoutes);
-
 // Penanganan 404
 app.use((req, res, next) => {
     res.status(404).json({ message: 'Endpoint tidak ditemukan. Periksa kembali URL dan metode HTTP Anda.' });

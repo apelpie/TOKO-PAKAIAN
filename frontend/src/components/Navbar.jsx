@@ -1,32 +1,37 @@
 import React from 'react';
-import { ShoppingCart, LogOut } from 'lucide-react'; // Panggil icon-nya
-import './Navbar.css'; // pastikan file CSS ini ada dan di-import!
+import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import './Navbar.css';
 
-const Navbar = ({ onBrandClick, cartCount, onCartClick, onLogout }) => {
+const Navbar = () => {
+  const location = useLocation();
+  const { user } = useAuth();
+  
+  // ❌ Jangan tampilkan navbar di halaman login
+  if (location.pathname === '/login') {
+    return null;
+  }
+  
   return (
     <nav className="navbar">
-      <div className="nav-logo" onClick={() => onBrandClick('katalog')}>
-        <h2>Daphne's</h2>
+      <div className="logo">
+        Daphne's<span>.</span>
       </div>
       
-      <ul className="nav-links">
-        <li onClick={() => onBrandClick('katalog')}>Dashboard</li>
-        <li onClick={() => onBrandClick('katalog')}>Produk</li>
-        <li>Tentang</li>
-      </ul>
-
-      <div className="nav-actions">
-        <div className="nav-cart-container" onClick={onCartClick}>
-          <ShoppingCart size={22} strokeWidth={2} />
-          {cartCount > 0 && <span className="nav-cart-badge">{cartCount}</span>}
-        </div>
-        
-        {/* Tombol Logout dengan icon */}
-        <button className="logout-mini-btn" onClick={onLogout}>
-          <LogOut size={16} />
-          <span>Logout</span>
-        </button>
-      </div>
+      {user && ( // ✅ Hanya tampilkan menu jika user sudah login
+        <>
+          <div className="nav-links">
+            <Link to="/" className={location.pathname === '/' ? 'active' : ''}>Dashboard</Link>
+            <Link to="/produk" className={location.pathname === '/produk' ? 'active' : ''}>Produk</Link>
+            <Link to="/tentang" className={location.pathname === '/tentang' ? 'active' : ''}>Tentang</Link>
+          </div>
+          
+          <div className="user-profile">
+            <i className="fas fa-user-circle"></i>
+            <span>Halo, {user?.name || 'User'}! 🎉</span>
+          </div>
+        </>
+      )}
     </nav>
   );
 };

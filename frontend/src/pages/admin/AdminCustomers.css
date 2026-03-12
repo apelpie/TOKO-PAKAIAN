@@ -1,0 +1,264 @@
+.admin-customers {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Loading */
+.customers-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #EDE9FE;
+  border-top-color: #8B5CF6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Header */
+.customers-header {
+  margin-bottom: 24px;
+}
+
+.customers-header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 8px 0;
+}
+
+.customers-count {
+  color: #6B7280;
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Table */
+.customers-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+}
+
+.customers-table th {
+  text-align: left;
+  padding: 16px 12px;
+  background: #F9FAFB;
+  color: #6B7280;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.customers-table td {
+  padding: 16px 12px;
+  border-bottom: 1px solid #F3F4F6;
+  color: #374151;
+  vertical-align: middle;
+}
+
+.customers-table tr:hover td {
+  background: #F9FAFB;
+}
+
+.customer-name {
+  font-weight: 500;
+  color: #111827;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Status Badge */
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  min-width: 70px;
+}
+
+.status-badge.aktif {
+  background: #E3F9E5;
+  color: #1E7B4C;
+}
+
+.status-badge.nonaktif {
+  background: #FEE2E2;
+  color: #B91C1C;
+}
+
+/* Modal Detail */
+.customer-detail-content {
+  padding: 24px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* Customer Profile */
+.customer-profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.customer-avatar {
+  width: 60px;
+  height: 60px;
+  background: #8B5CF6;
+  color: white;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.customer-name-section {
+  flex: 1;
+}
+
+.customer-name-section h3 {
+  margin: 0 0 4px 0;
+  font-size: 1.3rem;
+  color: #111827;
+}
+
+.customer-name-section p {
+  margin: 0;
+  color: #6B7280;
+  font-size: 0.95rem;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.stat-card {
+  background: #F9FAFB;
+  padding: 16px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.85rem;
+  color: #6B7280;
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Modal Actions */
+.btn-status {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.95rem;
+}
+
+.btn-status.deactivate {
+  background: #FEE2E2;
+  color: #B91C1C;
+}
+
+.btn-status.deactivate:hover {
+  background: #B91C1C;
+  color: white;
+}
+
+.btn-status.activate {
+  background: #E3F9E5;
+  color: #1E7B4C;
+}
+
+.btn-status.activate:hover {
+  background: #1E7B4C;
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-customers {
+    padding: 16px;
+  }
+
+  .customer-profile {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+  }
+
+  .btn-status {
+    width: 100%;
+  }
+}
+
+/* Role Badge */
+.role-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  min-width: 70px;
+}
+
+.role-badge.admin {
+  background: #EDE9FE;
+  color: #8B5CF6;
+}
+
+.role-badge.pelanggan {
+  background: #E7F5FF;
+  color: #0065A9;
+}
+
+/* Update table header for new column */
+.customers-table th:nth-child(4) { width: 80px; } /* Role */

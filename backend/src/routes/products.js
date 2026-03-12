@@ -137,15 +137,19 @@
  *         description: Produk tidak ditemukan
  */
 
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const auth = require("../middleware/authorization");
-const product = require("../controllers/productController");
+const productController = require('../controllers/productController');
+const auth = require('../middleware/authorization');
+const upload = require('../middleware/upload');
 
-router.get("/", auth.authenticate, auth.authorize(["admin"]), product.getAllProducts);
-router.get("/:id", auth.authenticate, auth.authorize(["admin"]), product.getProductById);
-router.post("/", auth.authenticate, auth.authorize(["admin"]), product.createProduct);
-router.put("/:id", auth.authenticate, auth.authorize(["admin"]), product.updateProduct);
-router.delete("/:id", auth.authenticate, auth.authorize(["admin"]), product.deleteProduct);
+// Public routes
+router.get('/', productController.getAllProducts);
+router.get('/:id', productController.getProductById);
+
+// Admin only routes
+router.post('/',auth.authenticate,auth.authorize('admin'),upload.single('image'), productController.createProduct);
+router.put('/:id',auth.authenticate,auth.authorize('admin'),upload.single('image'), productController.updateProduct);
+router.delete('/:id',auth.authenticate,auth.authorize('admin'), productController.deleteProduct);
 
 module.exports = router;

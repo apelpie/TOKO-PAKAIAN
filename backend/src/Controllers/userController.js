@@ -1,6 +1,32 @@
 const bcrypt = require('bcrypt');
 const pool = require('../db/pool');
 
+// GET all users (hanya untuk admin)
+exports.getAllUsers = async (req, res) => {
+    try {
+        const result = await pool.query(`
+            SELECT 
+                id_user as id, 
+                name, 
+                username, 
+                email, 
+                role, 
+                CASE 
+                    WHEN role = 'inactive' THEN 'Nonaktif'
+                    ELSE 'Aktif'
+                END as status,
+                created_at
+            FROM users 
+            ORDER BY created_at DESC
+        `);
+        
+        res.json(result.rows);
+    } catch (err) {
+        console.error('GET ALL USERS ERROR:', err);
+        res.status(500).json({ message: 'Gagal mengambil data users' });
+    }
+};
+
 exports.getProfile = async (req, res) => {
     try {
         const result = await pool.query(

@@ -1,29 +1,27 @@
 import React from 'react';
+import './ProductCard.css';
 
-// Komponen ini menerima data 'product' sebagai props
-const ProductCard = ({ product, onAddToCart, onBuyNow }) => {
+const ProductCard = ({ product }) => {
+  // product = { id, name, price, image, category }
+  
   return (
-    <div className="item-card">
-      <div className="item-image-container">
-        <img src={product.gambar} alt={product.nama} className="product-img" />
+    <div className="product-card">
+      <div className="product-image">
+        {product.image ? (
+          <img src={product.image} alt={product.name} />
+        ) : (
+          <i className="fas fa-tshirt" style={{ fontSize: '40px', color: '#ccc' }}></i>
+        )}
       </div>
-      
-      <div className="item-details">
-        <h3 className="item-name">{product.nama}</h3>
-        <p className="item-price">Rp {product.harga.toLocaleString()}</p>
-        <p className="item-stock">Sisa Stok: {product.stok}</p>
-        
-        <div className="action-buttons">
-          {/* Tambahkan onClick={onBuyNow} di sini */}
-          <button className="buy-now-btn" onClick={onBuyNow}>
-            Beli Sekarang
-          </button>
-          
-          {/* Tambahkan onClick={onAddToCart} di sini */}
-          <button className="cart-icon-btn" onClick={onAddToCart}>
-            🛒
-          </button>
+      <div className="product-info">
+        <h3>{product.name}</h3>
+        <p className="product-category">{product.category}</p>
+        <div className="product-price">
+          Rp {product.price.toLocaleString('id-ID')}
         </div>
+        <button className="btn-small">
+          <i className="fas fa-shopping-cart"></i> Tambah ke Keranjang
+        </button>
       </div>
     </div>
   );
